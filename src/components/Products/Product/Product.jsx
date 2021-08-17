@@ -5,7 +5,10 @@ import { AddShoppingCart } from '@material-ui/icons';
 import useStyles from './styles';
 
 const Product = ({ product }) => { // instead if use props you can use product
-    const classes = useStyles(); // here using hook to styles
+    const classes = useStyles(); // here using hook styles
+
+    console.log(product);
+    return <div>test</div>
     
     return (
         <Card className={classes.root}>
