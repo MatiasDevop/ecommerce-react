@@ -11,6 +11,7 @@ const steps = ['Shipping address', 'Payment details'];
 const Checkout = ({ cart }) => {
     const [activeStep, setActiveStep] = useState(0); //this activates the next step try out changing the value
     const [checkoutToken, setCheckoutToken] = useState(null);
+    const [shippingData, setShippingData] = useState({});
     const classes = useStyles();
 
     useEffect(() => {
@@ -29,6 +30,15 @@ const Checkout = ({ cart }) => {
         generateToken();
     }, [cart]);
     
+    const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+    const next = (data) => {
+        setShippingData(data);
+
+        nextStep();
+    }
+
     const Confirmation = () => (  // this always like a component no function you can also create another file
         <div>
             Confirmation
@@ -36,8 +46,8 @@ const Checkout = ({ cart }) => {
     );
 
     const Form =() => activeStep === 0
-        ? <AddressForm checkoutToken={checkoutToken} />
-        : <PaymentForm />
+        ? <AddressForm checkoutToken={checkoutToken} next={next} />
+        : <PaymentForm shippingData={shippingData} />
 
     return (
         <>
